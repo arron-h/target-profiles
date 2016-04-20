@@ -1,0 +1,4 @@
+define engselect_n0		L_SHIFT+'1'
+define engselect_n1		L_SHIFT+'2'
+define engselect_all	L_SHIFT+'`'
+define enginei01		'i'
