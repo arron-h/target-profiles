@@ -53,11 +53,12 @@ int MapThrottleInputs()
                                       LOCK ) );
 
 	// Flaps
-	MapKey( &Throttle, FLAPSU, landingflaps_u );
-	MapKey( &Throttle, FLAPSD, landingflaps_d );
+	MapKey( &Throttle, FLAPU, landingflaps_u );
+	MapKey( &Throttle, FLAPD, landingflaps_d );
 
-	// @todo - determine whether it's possible to use explicit raise/lower
-	//MapKey( &Throttle, EACON,  )
+	// Gear
+	MapKey( &Throttle, EACON,  PULSE + gear_raise );
+	MapKey( &Throttle, EACOFF, PULSE + gear_lower );
 
 	// 2-speed propellor pitch control
 	MapKey( &Throttle, CHF, pitch_plus );
@@ -66,15 +67,36 @@ int MapThrottleInputs()
 	// Cowl/radiator
 	MapKey( &Throttle, SPDF, rad_plus );
 	MapKey( &Throttle, SPDB, rad_minus );
+	
+	// Carb heat @todo - keep state assume off
+	MapKey( &Throttle, RDRDIS, PULSE + carb_heat );
+	MapKey( &Throttle, RDRNRM, PULSE + carb_heat );
+	
+	// Boost cutout @todo - keep state assume off
+	MapKey( &Throttle, APUON,  PULSE + boost_cutout );
+	MapKey( &Throttle, APUOFF, PULSE + boost_cutout );
 
 	// Wheel chocks
 	MapKey( &Throttle, SC, brakeshoes01 );
 
-	// @todo - make sure this actually works
 	// Select crew position (and also shift UMD state)
 	MapKey( &Throttle, PSF, PULSE + cabin2 );
 	MapKey( &Throttle, PSM, PULSE + cabin1 );
 	MapKey( &Throttle, PSB, PULSE + cabin3 );
+	
+	// Course setter
+	MapKey( &Throttle, CSU, course_incr );
+	MapKey( &Throttle, CSD, course_decr );
+	
+	// Directional gyro
+	MapKey( &Throttle, MSU, gyro_incr );
+	MapKey( &Throttle, MSD, gyro_decr );
+	
+	// Autopilot
+	MapKey( &Throttle, MSL, autopilot_l );
+	MapKey( &Throttle, MSR, autopilot_r );
+	MapKey( &Throttle, APENG, cycle_autopilot );
+	MapKey( &Throttle, LTB, disable_autopilot );
 
 	return 0;
 }
@@ -107,6 +129,9 @@ int MapStickInputs()
 	MapKey( &Joystick, H3R, adjustsight_right );
 	MapKeyIO( &Joystick, H3U, sightalt_plus,  sightvel_plus );
 	MapKeyIO( &Joystick, H3D, sightalt_minus, sightvel_minus );
+	
+	// Disable some inputs
+	MapKey( &Joystick, S4, 0 );
 
 	return 0;
 }
