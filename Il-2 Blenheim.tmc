@@ -7,7 +7,7 @@ int SetShiftState()
 	// FWD = Bombardier
 	// MDL = Pilot
 	// BCK = Gunner
-	SetShiftButton( &Throttle, 0, &Throttle, PSF, PSB );
+	SetShiftButton( &Joystick, S4, &Throttle, 0, 0 );
 
 	return 0;
 }
@@ -52,11 +52,62 @@ int MapThrottleInputs()
 	                                  PULSE + engselect_all,
                                       LOCK ) );
 
+	// Flaps
+	MapKey( &Throttle, FLAPSU, landingflaps_u );
+	MapKey( &Throttle, FLAPSD, landingflaps_d );
+
+	// @todo - determine whether it's possible to use explicit raise/lower
+	//MapKey( &Throttle, EACON,  )
+
+	// 2-speed propellor pitch control
+	MapKey( &Throttle, CHF, pitch_plus );
+	MapKey( &Throttle, CHB, pitch_minus );
+
+	// Cowl/radiator
+	MapKey( &Throttle, SPDF, rad_plus );
+	MapKey( &Throttle, SPDB, rad_minus );
+
+	// Wheel chocks
+	MapKey( &Throttle, SC, brakeshoes01 );
+
+	// @todo - make sure this actually works
+	// Select crew position (and also shift UMD state)
+	MapKey( &Throttle, PSF, PULSE + cabin2 );
+	MapKey( &Throttle, PSM, PULSE + cabin1 );
+	MapKey( &Throttle, PSB, PULSE + cabin3 );
+
 	return 0;
 }
 
 int MapStickInputs()
 {
+	// FOV
+	MapKey( &Joystick, H4U, fov_plus );
+	MapKey( &Joystick, H4D, fov_minus );
+
+	// Trim. Blenheim has no aileron trim
+	MapKey( &Joystick, H1L, ruddert_left );
+	MapKey( &Joystick, H1R, ruddert_right );
+	MapKey( &Joystick, H1U, elevatort_ndown );
+	MapKey( &Joystick, H1D, elevatort_nup );
+
+	// Virtual views
+	MapKey( &Joystick, H2U, toggleAim );
+	MapKey( &Joystick, H2D, toggleDash );
+
+	// Guns/bomb pickle
+	MapKey( &Joystick, TG1, trigger0 );
+	MapKey( &Joystick, S2,  trigger1 );
+
+	// Salvo mode cycle
+	MapKey( &Joystick, S1,  nextBombMode );
+
+	// Bomb aimer. Paddle toggles alt/vel on DMS up/down
+	MapKey( &Joystick, H3L, adjustsight_left );
+	MapKey( &Joystick, H3R, adjustsight_right );
+	MapKeyIO( &Joystick, H3U, sightalt_plus,  sightvel_plus );
+	MapKeyIO( &Joystick, H3D, sightalt_minus, sightvel_minus );
+
 	return 0;
 }
 

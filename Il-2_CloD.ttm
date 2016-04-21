@@ -2,3 +2,32 @@ define engselect_n0		L_SHIFT+'1'
 define engselect_n1		L_SHIFT+'2'
 define engselect_all	L_SHIFT+'`'
 define enginei01		'i'
+define landingflaps_d	'v'
+define landingflaps_u	'f'
+define rad_plus			'DX7'
+define rad_minus		'DX8'
+define pitch_minus		'DX12'
+define pitch_plus		'DX11'
+define brakeshoes01		L_SHIFT+'b'
+define cabin1			L_ALT+'1'
+define cabin2			L_ALT+'2'
+define cabin3			L_ALT+'3'
+
+define fov_plus			'DX16'
+define fov_minus		'DX14'
+define ruddert_left		L_CTL+'z'
+define ruddert_right	L_CTL+'x'
+define elevatort_ndown	L_SHIFT+DARROW
+define elevatort_nup	L_SHIFT+UARROW
+define trigger0			'DX1'
+define trigger1			'DX2'
+define toggleAim		'DX7'
+define toggleDash		'DX9'
+define nextBombMode		'DX5'
+
+define adjustsight_left		L_SHIFT+DEL
+define adjustsight_right	L_SHIFT+PGDN
+define sightalt_plus		L_SHIFT+HOME
+define sightalt_minus		L_SHIFT+END
+define sightvel_plus		L_CTL+HOME
+define sightvel_minus		L_CTL+END
