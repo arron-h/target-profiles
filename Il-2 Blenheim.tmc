@@ -8,49 +8,50 @@ int SetShiftState()
 	// MDL = Pilot
 	// BCK = Gunner
 	SetShiftButton( &Throttle, 0, &Throttle, PSF, PSB );
-	
+
 	return 0;
 }
 
 int MapAxes()
 {
 	MapAxis( &Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE );
-    MapAxis( &Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE );
-    
+	MapAxis( &Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE );
+
 	MapAxis( &Throttle, THR_FC,    DX_SLIDER_AXIS, AXIS_REVERSED, MAP_ABSOLUTE );
 	MapAxis( &Throttle, THR_RIGHT, DX_Z_AXIS,      AXIS_REVERSED, MAP_ABSOLUTE );
 	MapAxis( &Throttle, THR_LEFT,  DX_ZROT_AXIS,   AXIS_REVERSED, MAP_ABSOLUTE );
-	
+
 	// Rudder on SCX. Use a curve.
 	MapAxis( &Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL );
 	SetSCurve( &Throttle, SCX, 0, 20, 0, 5, -2 );
-	
+
 	// Not used
 	MapAxis( &Throttle, SCY, 0, AXIS_NORMAL, MAP_RELATIVE );
-	
+
 	return 0;
 }
 
 int MapThrottleInputs()
 {
+	int kStartupDelayTime = 50;
+
 	// Use a nice little combo to start an engine.
 	MapKey( &Throttle, EOLIGN, CHAIN( LOCK +
-	                                  PULSE + engselect_n0, 
-	                                  D(50), 
-	                                  PULSE + enginei01, 
-	                                  D(50), 
+	                                  PULSE + engselect_n0,
+	                                  D( kStartupDelayTime ),
+	                                  PULSE + enginei01,
+	                                  D( kStartupDelayTime ),
 	                                  PULSE + engselect_all,
                                       LOCK ) );
-                                      
+
 	MapKey( &Throttle, EORIGN, CHAIN( LOCK +
-	                                  PULSE + engselect_n1, 
-	                                  D(50), 
-	                                  PULSE + enginei01, 
-	                                  D(50), 
+	                                  PULSE + engselect_n1,
+	                                  D( kStartupDelayTime ),
+	                                  PULSE + enginei01,
+	                                  D( kStartupDelayTime ),
 	                                  PULSE + engselect_all,
                                       LOCK ) );
-	
-	
+
 	return 0;
 }
 
@@ -65,26 +66,26 @@ int main()
 	Configure( &HCougar, MODE_EXCLUDED );
 	Configure( &T16000, MODE_EXCLUDED );
 
-    Configure( &LMFD, MODE_EXCLUDED );
-    Configure( &RMFD, MODE_EXCLUDED );
- 
-    if( Init( &EventHandle ) )
-    {
-    	return 1; // Declare the event handler, return on error
-    }
-	
+	Configure( &LMFD, MODE_EXCLUDED );
+	Configure( &RMFD, MODE_EXCLUDED );
+
+	if( Init( &EventHandle ) )
+	{
+		return 1; // Declare the event handler, return on error
+	}
+
 	SetShiftState();
 	MapAxes();
 	MapThrottleInputs();
 	MapStickInputs();
-	
+
 	return 0;
 }
 
 // Event handler
 int EventHandle( int type, alias o, int x )
 {
-    DefaultMapping( &o, x );
-	
+	DefaultMapping( &o, x );
+
 	return 0;
 }
